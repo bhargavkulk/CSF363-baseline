@@ -1,0 +1,7 @@
+bin/
+obj/
+src/parser.cc
+include/parser.hh
+src/lexer.cc
+.vscode/
+compile_flags.txt
