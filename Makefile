@@ -5,7 +5,7 @@ FLAGS:= -Wall -Wextra -Wno-unused-function -Wunused-parameter -Iinclude -std=c++
 LLVMFLAGS:= `llvm-config --cppflags`
 LLVMLIB:= `llvm-config --ldflags`
 
-SRC:= $(wildcard src/*.cc) src/$(PARSER).cc src/$(LEXER).cc
+SRC:= src/$(PARSER).cc src/$(LEXER).cc $(wildcard src/*.cc)
 OBJ:= $(patsubst src/%.cc,obj/%.o,$(SRC))
 BIN:= bin/base
 
