@@ -4,7 +4,9 @@ Welcome to CS F363! This is the baseline language project that will be used for 
 
 ## Installing requirements
 
-These assignments require a *NIX environment. YOu can run these commands to install all the software needed to compile this project properly:
+These assignments require a *NIX environment. You can run these commands to install all the software needed to compile this project properly:
+
+For Linux
 
 ```bash
 # the tool used to build this project
@@ -15,6 +17,21 @@ sudo apt-get install flex
 sudo apt-get install bison
 # the LLVM toolchain
 sudo apt-get install clang llvm llvm-10
+```
+For MacOS (Unix)
+
+```bash
+# install Homebrew if you haven't already
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# the tool used to build this project
+make install
+# the tool used for lexing/scanning
+brew install flex
+# the tool used for parsing
+brew install bison
+# the LLVM toolchain
+echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
 ```
 
 ## Running this project
@@ -55,7 +72,7 @@ CSF363-baseline
 - The `include` folder contains all header files. All subsequent header files you write must be saved in this folder.
     - `include/ast.hh` contains the definition of the the AST of this language. We have defined one parent class `Node` as a pure abstract class (similiar to an interface in Java). All types of nodes inherit from this one `Node` class. By following the definition of the various node types, the tree structure of these ndoes becomes clearer.
     - `include/ccodegen.hh` contains the definition of the compiler which emits C code. In subsequent labs, this emitter will be replaced with an LLVM backend which would emit LLVM-IR.
-    - `include/parser_util.hh` contains the definition of a struct to help bison parse. YOu will learn more about how bison works as the course progresses.
+    - `include/parser_util.hh` contains the definition of a struct to help bison parse. You will learn more about how bison works as the course progresses.
     - `symbol.hh` contains the definition of rudimentary symbol table. As you add language constructs like scoping and functions, the structure of the symbol table will become more complicated. For now this jst keeps track of the variables that have been declared. The parser uses it ensure variables are not redeclared, and undeclared variables are not used.
 - The `src` folder contains the implementation files for the header files. All subsequent implementation files you write mus be saved in this folder.
     - `src/lexer.lex` contains the specification of the scanner. Each token's regex has a subsequent action. In this file, the action is to return the corresponding token that is defined in `src/parser.yy` at lines 28-31. This file uses the flex lexer generator tool.
