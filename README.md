@@ -2,6 +2,17 @@
 
 Welcome to CS F363! This is the baseline language project that will be used for all further labs/assignments  in this course.
 
+## The Base Language
+
+As it is a baseline, the Base language only has arithmetic, variables and a hardcoded `dbg`(debug) statement. This is how a program in the Base language currently looks like:
+
+```
+let abc = 123 * 20 + (22 / 2) - 3;
+dbg abc + abc;
+```
+
+As the course progress, you will be required to make changes to the Base language to fit certain specifications.
+
 ## Installing requirements
 
 These assignments require a *NIX environment. You can run these commands to install all the software needed to compile this project properly:
