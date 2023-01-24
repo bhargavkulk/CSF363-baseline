@@ -1,4 +1,2 @@
-let nice = 6 + 9 + 6 * 9;
-dbg nice;
-let notnice = nice + 1;
-dbg notnice;
+let abc = 123 * 20 + (22 / 2) - 3;
+dbg abc + abc;
