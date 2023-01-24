@@ -33,7 +33,7 @@ src/$(LEXER).cc: src/$(LEXER).lex
 
 clean:
 	@echo "Cleaning files..."
-	rm -rf src/$(LEXER).cc src/$(PARSER).cc include/$(PARSER).hh obj 
+	rm -rf src/$(LEXER).cc src/$(PARSER).cc include/$(PARSER).hh obj bin
 
 compile: $(BIN) $(BEBIN)
 

@@ -16,7 +16,7 @@ sudo apt-get install flex
 # the tool used for parsing
 sudo apt-get install bison
 # the LLVM toolchain
-sudo apt-get install clang llvm llvm-10
+sudo apt-get install clang llvm
 ```
 For MacOS (Unix)
 
@@ -36,49 +36,46 @@ source ~/.bash_profile
 
 ## Running this project
 
-To build this project simply run `make`. You can find the executable in the `bin` folder.
-There are two ways to run this project:
+To build this compiler simply run `make`. You can find the executable called `bin/base` folder. This is your compiler.
 
-```bash
-# this outputs the generated C code to the stdout
-./bin/base test.be
-# this outputs the generated C code to the given file name
-./bin/base test.be test.c
-```
+To run this compiler simply run `make compile`. This would use the [`test.be`](test.be) file and generate an executable of that program called `bin/test`. This binary is dependent on the [`runtime/runtime_lib.cc`](runtime/runtime_lib.cc) file so make sure it exists.
 
 ## Directory structure
 
 ```
 CSF363-baseline
-├── Makefile
-├── README.md
-├── bin
 ├── include
 │   ├── ast.hh
-│   ├── ccodegen.hh
+│   ├── llvmcodegen.hh
 │   ├── parser_util.hh
 │   └── symbol.hh
+├── Makefile
+├── README.md
+├── runtime
+│   └── runtime_lib.cc
 ├── src
 │   ├── ast.cc
-│   ├── ccodegen.cc
 │   ├── lexer.lex
+│   ├── llvmcodegen.cc
 │   ├── main.cc
 │   ├── parser.yy
 │   └── symbol.cc
 └── test.be
+
 ```
 
 - The bin folder contains the executable after running `make`
-- The `include` folder contains all header files. All subsequent header files you write must be saved in this folder.
-    - `include/ast.hh` contains the definition of the the AST of this language. We have defined one parent class `Node` as a pure abstract class (similiar to an interface in Java). All types of nodes inherit from this one `Node` class. By following the definition of the various node types, the tree structure of these ndoes becomes clearer.
-    - `include/ccodegen.hh` contains the definition of the compiler which emits C code. In subsequent labs, this emitter will be replaced with an LLVM backend which would emit LLVM-IR.
-    - `include/parser_util.hh` contains the definition of a struct to help bison parse. You will learn more about how bison works as the course progresses.
-    - `symbol.hh` contains the definition of rudimentary symbol table. As you add language constructs like scoping and functions, the structure of the symbol table will become more complicated. For now this jst keeps track of the variables that have been declared. The parser uses it ensure variables are not redeclared, and undeclared variables are not used.
-- The `src` folder contains the implementation files for the header files. All subsequent implementation files you write mus be saved in this folder.
-    - `src/lexer.lex` contains the specification of the scanner. Each token's regex has a subsequent action. In this file, the action is to return the corresponding token that is defined in `src/parser.yy` at lines 28-31. This file uses the flex lexer generator tool.
-    - `src/parser.yy` contains the specification of the parser and the overall grammar of the language. This parser builds an AST as defined in `include/ast.hh`. This files uses the bison parser generator tool.
+- The [`include`](include) folder contains all header files. All subsequent header files you write must be saved in this folder.
+    - [`include/ast.hh`](include/ast.hh) contains the definition of the the AST of this language. We have defined one parent class `Node` as a pure abstract class (similiar to an interface in Java). All types of nodes inherit from this one `Node` class. By following the definition of the various node types, the tree structure of these ndoes becomes clearer.
+    - [`include/llvmcodegen.hh`](include/llvmcodegen.hh) contains the definition of the compiler which emits LLVM-IR code.
+    - [`include/parser_util.hh`](`include/parser_util.hh`) contains the definition of a struct to help bison parse. You will learn more about how bison works as the course progresses.
+    - [`symbol.hh`](symbol.hh) contains the definition of rudimentary symbol table. As you add language constructs like scoping and functions, the structure of the symbol table will become more complicated. For now this jst keeps track of the variables that have been declared. The parser uses it ensure variables are not redeclared, and undeclared variables are not used.
+- The [`src`](src) folder contains the implementation files for the header files. All subsequent implementation files you write mus be saved in this folder.
+    - [`src/lexer.lex`](`src/lexer.lex`) contains the specification of the scanner. Each token's regex has a subsequent action. In this file, the action is to return the corresponding token that is defined in `src/parser.yy` at lines 28-31. This file uses the flex lexer generator tool.
+    - [`src/parser.yy`](src/parser.yy) contains the specification of the parser and the overall grammar of the language. This parser builds an AST as defined in `include/ast.hh`. This files uses the bison parser generator tool.
+    - [`src/main.cc`](src/main.cc) is the main driver file.
 
-`include/parser.hh` is header filethat you may think is missin, but it is actually generated by bison with `src/bison.yy` as input. You should see it in `include` after running `make` once.
+> `include/parser.hh` is header file that you may think is missing, but it is actually generated by bison with `src/bison.yy` as input. You should see it in [`include`](include) after running `make` once.
 
 ## Additional Reading
 
