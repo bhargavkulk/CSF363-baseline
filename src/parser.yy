@@ -1,4 +1,4 @@
-%define api.value.type { Value }
+%define api.value.type { ParserValue }
 
 %code requires {
 #include <iostream>

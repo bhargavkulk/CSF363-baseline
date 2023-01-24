@@ -6,7 +6,7 @@
 
 #include "ast.hh"
 
-struct Value {
+struct ParserValue {
     std::string lexeme;
 
     Node *node;

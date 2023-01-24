@@ -1,4 +1,5 @@
 #include <iostream>
+#include <llvm/IR/LLVMContext.h>
 #include <vector>
 #include <cstdio>
 #include <cstring>
@@ -6,7 +7,7 @@
 
 #include "parser.hh"
 #include "ast.hh"
-#include "ccodegen.hh"
+#include "llvmcodegen.hh"
 
 extern FILE *yyin;
 extern int yylex();
@@ -41,65 +42,18 @@ int main(int argc, char* argv[]) {
 
 	if(final_values) {
 		std::cout << final_values->to_string() << std::endl;
-		CCompiler compiler;
-		compiler.generate((Node *)final_values);
+        llvm::LLVMContext context;
+		LLVMCompiler compiler(&context, "base");
+		compiler.compile(final_values);
         if(output) {
-            std::ofstream fout(argv[2]);
-            compiler.write(fout);
-            fout.close();
+            compiler.write(std::string(argv[2]));
         } else
-            compiler.write(std::cout);
+            compiler.dump();
 	}
 	else
 	 	std::cerr << "empty program";
 
 	fclose(source);
-}
 
-
-void lexer_output() {
-    int x;
-        while ((x = yylex()) != 0) {   
-            switch (x) {   
-            case TPLUS: 
-                printf("TPLUS\n");
-                break;
-            case TDASH:
-                printf("TDASH\n");
-                break;
-            case TSTAR:
-                printf("TSTAR\n");
-                break;
-            case TSLASH:
-                printf("TSLASH\n");
-                break;
-            case TINT_LIT:
-                printf("TINT_LIT %s\n", yytext);
-                break;
-            case TIDENT:
-                printf("TIDENT %s\n", yytext);
-                break;
-            case TLET:
-                printf("TLET\n");
-                break;
-            case TDBG:
-                printf("TDBG\n");
-                break;
-            case TSCOL:
-                printf("TSCOL\n");
-                break;
-            case TLPAREN:
-                printf("TLPAREN\n");
-                break;
-            case TRPAREN:
-                printf("TRPAREN\n");
-                break;
-            case TEQUAL:
-                printf("TEQUAL\n");
-                break;
-            default:
-                printf("Other: %d\n", x); 
-                break;
-            }   
-        }
+    return 0;
 }

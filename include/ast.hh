@@ -1,18 +1,28 @@
 #ifndef AST_HH
 #define AST_HH
 
+#include <llvm/IR/Value.h>
 #include <string>
 #include <vector>
 
-struct CCompiler;
+struct LLVMCompiler;
 
 struct Node {
-    enum Type {
+    enum NodeType {
         BIN_OP, INT_LIT, STMTS, ASSN, DBG, IDENT
     } type;
 
     virtual std::string to_string() = 0;
-    virtual void c_codegen(CCompiler *compiler) = 0;
+    virtual llvm::Value *llvm_codegen(LLVMCompiler *compiler) = 0;
+};
+
+struct NodeStmts : public Node {
+    std::vector<Node*> list;
+
+    NodeStmts();
+    void push_back(Node *node);
+    std::string to_string();
+    llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
 struct NodeBinOp : public Node {
@@ -24,7 +34,7 @@ struct NodeBinOp : public Node {
 
     NodeBinOp(Op op, Node *leftptr, Node *rightptr);
     std::string to_string();
-    void c_codegen(CCompiler *compiler);
+    llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
 struct NodeInt : public Node {
@@ -32,16 +42,7 @@ struct NodeInt : public Node {
 
     NodeInt(int val);
     std::string to_string();
-    void c_codegen(CCompiler *compiler);
-};
-
-struct NodeStmts : public Node {
-    std::vector<Node*> list;
-
-    NodeStmts();
-    void push_back(Node *node);
-    std::string to_string();
-    void c_codegen(CCompiler *compiler);
+    llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
 struct NodeAssn : public Node {
@@ -50,7 +51,7 @@ struct NodeAssn : public Node {
 
     NodeAssn(std::string id, Node *expr);
     std::string to_string();
-    void c_codegen(CCompiler *compiler);
+    llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
 struct NodeDebug : public Node {
@@ -58,7 +59,7 @@ struct NodeDebug : public Node {
 
     NodeDebug(Node *expr);
     std::string to_string();
-    void c_codegen(CCompiler *compiler);
+    llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
 struct NodeIdent : public Node {
@@ -66,7 +67,7 @@ struct NodeIdent : public Node {
 
     NodeIdent(std::string ident);
     std::string to_string();
-    void c_codegen(CCompiler *compiler);
+    llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
 #endif
