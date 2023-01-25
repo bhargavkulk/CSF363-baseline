@@ -6,6 +6,9 @@
 
 #include "ast.hh"
 
+/**
+    Intermediate strcuct used by bison
+*/
 struct ParserValue {
     std::string lexeme;
 
@@ -13,4 +16,4 @@ struct ParserValue {
     NodeStmts *stmts;
 };
 
-#endif // PARSER_UTIL_HH
+#endif

@@ -7,6 +7,9 @@
 
 struct LLVMCompiler;
 
+/**
+Base node class. Defined as `abstract`.
+*/
 struct Node {
     enum NodeType {
         BIN_OP, INT_LIT, STMTS, ASSN, DBG, IDENT
@@ -16,6 +19,9 @@ struct Node {
     virtual llvm::Value *llvm_codegen(LLVMCompiler *compiler) = 0;
 };
 
+/**
+    Node for list of statements
+*/
 struct NodeStmts : public Node {
     std::vector<Node*> list;
 
@@ -25,6 +31,9 @@ struct NodeStmts : public Node {
     llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
+/**
+    Node for binary operations
+*/
 struct NodeBinOp : public Node {
     enum Op {
         PLUS, MINUS, MULT, DIV
@@ -37,6 +46,9 @@ struct NodeBinOp : public Node {
     llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
+/**
+    Node for integer literals
+*/
 struct NodeInt : public Node {
     int value;
 
@@ -45,6 +57,9 @@ struct NodeInt : public Node {
     llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
+/**
+    Node for variable assignments
+*/
 struct NodeAssn : public Node {
     std::string identifier;
     Node *expression;
@@ -54,6 +69,9 @@ struct NodeAssn : public Node {
     llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
+/**
+    Node for `dbg` statements
+*/
 struct NodeDebug : public Node {
     Node *expression;
 
@@ -62,6 +80,9 @@ struct NodeDebug : public Node {
     llvm::Value *llvm_codegen(LLVMCompiler *compiler);
 };
 
+/**
+    Node for idnetifiers
+*/
 struct NodeIdent : public Node {
     std::string identifier;
 

@@ -11,6 +11,11 @@
 
 using namespace llvm;
 
+/**
+    Compiler struct to store state of the LLVM IRBuilder.
+    The `compile` method recursively calls the llvmcodegen method for a given 
+    `Node`.
+*/
 struct LLVMCompiler {
     LLVMContext *context;
     IRBuilder<> builder;

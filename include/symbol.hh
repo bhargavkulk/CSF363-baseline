@@ -7,7 +7,6 @@
 
 
 // Basic symbol table, just keeping track of prior existence and nothing else
-
 struct SymbolTable {
     std::set<std::string> table;
 
