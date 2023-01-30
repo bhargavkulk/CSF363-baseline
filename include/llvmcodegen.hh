@@ -1,7 +1,7 @@
 #ifndef LLVMCODEGEN_HH
 #define LLVMCODEGEN_HH
 
-#include <llvm-10/llvm/IR/Instructions.h>
+#include <llvm/IR/Instructions.h>
 #include <string>
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/IRBuilder.h>

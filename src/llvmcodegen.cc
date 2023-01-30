@@ -1,9 +1,9 @@
 #include "llvmcodegen.hh"
 #include "ast.hh"
 #include <iostream>
-#include <llvm-10/llvm/IR/Constant.h>
-#include <llvm-10/llvm/IR/Constants.h>
-#include <llvm-10/llvm/IR/Instructions.h>
+#include <llvm/IR/Constant.h>
+#include <llvm/IR/Constants.h>
+#include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/DerivedTypes.h>
