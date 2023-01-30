@@ -40,6 +40,7 @@ make install
 brew install flex
 # the tool used for parsing
 brew install bison
+export PATH="$(brew --prefix bison)/bin:$PATH"
 # the LLVM toolchain
 echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bash_profile
 source ~/.bash_profile
