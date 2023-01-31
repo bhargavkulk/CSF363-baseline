@@ -1,6 +1,7 @@
 #include "llvmcodegen.hh"
 #include "ast.hh"
 #include <iostream>
+#include <llvm-10/llvm/Support/FileSystem.h>
 #include <llvm/IR/Constant.h>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/Instructions.h>
@@ -66,7 +67,7 @@ void LLVMCompiler::dump() {
 
 void LLVMCompiler::write(std::string file_name) {
     std::error_code EC;
-    raw_fd_ostream fout(file_name, EC, sys::fs::F_None);
+    raw_fd_ostream fout(file_name, EC, sys::fs::OF_None);
     WriteBitcodeToFile(module, fout);
     fout.flush();
     fout.close();
@@ -133,7 +134,9 @@ Value *NodeAssn::llvm_codegen(LLVMCompiler *compiler) {
 
 Value *NodeIdent::llvm_codegen(LLVMCompiler *compiler) {
     AllocaInst *alloc = compiler->locals[identifier];
-    return compiler->builder.CreateLoad(alloc, identifier);
+
+    // if your LLVM_MAJOR_VERSION >= 14
+    return compiler->builder.CreateLoad(alloc->getType()->getPointerElementType(), alloc, identifier);
 }
 
 #undef MAIN_FUNC

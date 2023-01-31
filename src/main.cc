@@ -1,5 +1,14 @@
 #include <iostream>
 #include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/Constant.h>
+#include <llvm/IR/Constants.h>
+#include <llvm/IR/Instructions.h>
+#include <llvm/IR/Module.h>
+#include <llvm/IR/BasicBlock.h>
+#include <llvm/IR/DerivedTypes.h>
+#include <llvm/IR/GlobalValue.h>
+#include <llvm/IR/Verifier.h>
+#include <llvm/Bitcode/BitcodeWriter.h>
 #include <vector>
 #include <cstdio>
 #include <cstring>
@@ -18,6 +27,7 @@ NodeStmts* final_values;
 void lexer_output();
 
 int main(int argc, char* argv[]) {
+
 	if(argc == 1) {
 		std::cerr << "Usage:\n";
 		std::cerr << "`base <file_name>`, to compile file and output to stdout\n";
