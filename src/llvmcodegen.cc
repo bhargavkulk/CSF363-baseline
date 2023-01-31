@@ -1,7 +1,7 @@
 #include "llvmcodegen.hh"
 #include "ast.hh"
 #include <iostream>
-#include <llvm-10/llvm/Support/FileSystem.h>
+#include <llvm/Support/FileSystem.h>
 #include <llvm/IR/Constant.h>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/Instructions.h>
