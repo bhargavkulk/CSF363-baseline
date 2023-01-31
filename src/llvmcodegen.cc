@@ -136,7 +136,7 @@ Value *NodeIdent::llvm_codegen(LLVMCompiler *compiler) {
     AllocaInst *alloc = compiler->locals[identifier];
 
     // if your LLVM_MAJOR_VERSION >= 14
-    return compiler->builder.CreateLoad(alloc->getType()->getPointerElementType(), alloc, identifier);
+    return compiler->builder.CreateLoad(compiler->builder.getInt32Ty(), alloc, identifier);
 }
 
 #undef MAIN_FUNC
