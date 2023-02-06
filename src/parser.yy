@@ -90,6 +90,6 @@ Expr : TINT_LIT
 %%
 
 int yyerror(std::string msg) {
-    std::cerr << "Error! " << msg << std::endl;
+    std::cerr << "Error! " << msg << "@" << yytext << std::endl;
     exit(1);
 }

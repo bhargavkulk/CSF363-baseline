@@ -10,7 +10,9 @@ OBJ:= $(patsubst src/%.cc,obj/%.o,$(SRC))
 BIN:= bin/base
 BEBIN:= bin/test
 
-.PHONY: clean compile
+.PHONY: clean compiler program
+
+compiler: $(BIN)
 
 $(BIN): $(OBJ)
 	@echo "Linking..."
@@ -35,7 +37,7 @@ clean:
 	@echo "Cleaning files..."
 	rm -rf src/$(LEXER).cc src/$(PARSER).cc include/$(PARSER).hh obj bin
 
-compile: $(BIN) $(BEBIN)
+program: $(BIN) $(BEBIN)
 
 $(BEBIN): obj/test.o obj/runtime_lib.o
 	@echo "Building executable..."

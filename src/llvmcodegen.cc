@@ -15,6 +15,11 @@
 
 #define MAIN_FUNC compiler->module.getFunction("main")
 
+/*
+The documentation for LLVM codegen, and how exactly this file works can be found
+ins `docs/llvm.md`
+*/
+
 void LLVMCompiler::compile(Node *root) {
     /* Adding reference to print_i in the runtime library */
     // void printi();
