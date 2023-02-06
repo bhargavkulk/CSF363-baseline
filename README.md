@@ -85,7 +85,7 @@ CSF363-baseline
 └── docs
     ├── lexer.md
     ├── parser.md
-    ├── llvm.md
+    └── llvm.md
 ```
 
 - The bin folder contains the executable after running `make`
