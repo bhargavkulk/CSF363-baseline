@@ -76,14 +76,14 @@ int main(int argc, char *argv[]) {
 
 			std::cout << token_to_string(token, yytext) << "\n";
 		}
-		fclose(source);
+		fclose(yyin);
 		return 0;
 	}
 
     final_values = nullptr;
 	yyparse();
 
-	fclose(source);
+	fclose(yyin);
 
 	if(final_values) {
 		if (arg_option == ARG_OPTION_P) {

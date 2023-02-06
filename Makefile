@@ -1,11 +1,14 @@
-LEXER:= lexer
+LEXER:= $(wildcard src/*.lex)
+LEXER_OUT:=$(patsubst src/%.lex,src/%.cc,$(LEXER))
+LEXER:= $(wildcard src/*.lex)
+LEXER_OUT:=$(patsubst src/%.lex,src/%.cc,$(LEXER))
 PARSER:= parser
 
-FLAGS:= -Wall -Wextra -Wno-unused-function -Wunused-parameter -Iinclude -std=c++17
+FLAGS:= -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -Iinclude -std=c++17
 LLVMFLAGS:= `llvm-config --cxxflags`
 LLVMLIB:= `llvm-config --ldflags --system-libs --libs core`
 
-SRC:= src/$(PARSER).cc src/$(LEXER).cc $(wildcard src/*.cc)
+SRC:= src/$(PARSER).cc $(LEXER_OUT) $(wildcard src/*.cc)
 OBJ:= $(patsubst src/%.cc,obj/%.o,$(SRC))
 BIN:= bin/base
 BEBIN:= bin/test
@@ -29,13 +32,13 @@ src/$(PARSER).cc: src/$(PARSER).yy
 	@echo "bison src/$(PARSER).yy -do src/$(PARSER).cc"; bison src/$(PARSER).yy -do src/$(PARSER).cc
 	@echo "mv -f src/$(PARSER).hh include/$(PARSER).hh"; mv -f src/$(PARSER).hh include/$(PARSER).hh
 
-src/$(LEXER).cc: src/$(LEXER).lex
+$(LEXER_OUT): $(LEXER)
 	@echo "Running flex..."
-	@echo "flex -o src/$(LEXER).cc src/$(LEXER).lex"; flex -o src/$(LEXER).cc src/$(LEXER).lex
+	@echo "flex -o $@ $^"; flex -o $@ $^
 
 clean:
 	@echo "Cleaning files..."
-	rm -rf src/$(LEXER).cc src/$(PARSER).cc include/$(PARSER).hh obj bin
+	rm -rf $(LEXER_OUT) src/$(PARSER).cc include/$(PARSER).hh obj bin
 
 program: $(BIN) $(BEBIN)
 

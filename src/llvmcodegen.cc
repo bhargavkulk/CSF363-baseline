@@ -28,7 +28,7 @@ void LLVMCompiler::compile(Node *root) {
         {builder.getInt32Ty()},
         false
     );
-    Function *printi_func = Function::Create(
+    Function::Create(
         printi_func_type,
         GlobalValue::ExternalLinkage,
         "printi",
