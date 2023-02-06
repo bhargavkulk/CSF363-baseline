@@ -6,7 +6,7 @@ The parser obtains a sequence of tokens from the lexical analyzer.The parser is 
 ## Bison and parser.yy 
 Bison is a general-purpose parser generator that converts a grammar description (Bison Grammar Files) for an LALR(1) context-free grammar into a C program to parse that grammar. The Bison parser is a bottom-up parser. It tries, by shifts and reductions, to reduce the entire input down to a single grouping whose symbol is the grammar's start-symbol.
 
-`parser.yy` defines the grammar and specifies the rules for constructing a parse tree of the input program. The parse tree is then used to generate intermediate code that can be executed.
+`parser.yy` defines the grammar and specifies the rules for constructing a parse tree of the input program. The parse tree is then used to generate intermediate code that can be executed. The symbol_table is used to keep track of declared variables.
 
 
 The code starts with `%define` and `%code` blocks which provide bison with information about the global variables and functions used in the parser.
