@@ -12,8 +12,11 @@ Bison is a general-purpose parser generator that converts a grammar description 
 The code starts with `%define` and `%code` blocks which provide bison with information about the global variables and functions used in the parser.
 
 The `%token` section defines the lexical tokens used in the grammar.
+
 The `%type` section defines the types of the non-terminal symbols in the grammar. 
+
 The `%left` section specifies the precedence of the binary arithmetic operators. 
+
 Tokens in line 36 will have lower precedence than those in line 37 . 
 In same Line the leftmost operator will be evaluated first.  
 
