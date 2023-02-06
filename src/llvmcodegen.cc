@@ -102,7 +102,7 @@ Value *NodeDebug::llvm_codegen(LLVMCompiler *compiler) {
 }
 
 Value *NodeInt::llvm_codegen(LLVMCompiler *compiler) {
-    return ConstantInt::get(Type::getInt32Ty(*(compiler->context)), value, true);
+    return compiler->builder.getInt32(value);
 }
 
 Value *NodeBinOp::llvm_codegen(LLVMCompiler *compiler) {
@@ -130,7 +130,7 @@ Value *NodeAssn::llvm_codegen(LLVMCompiler *compiler) {
         MAIN_FUNC->getEntryBlock().begin()
     );
 
-    AllocaInst *alloc = temp_builder.CreateAlloca(Type::getInt32Ty(*compiler->context), 0, identifier);
+    AllocaInst *alloc = temp_builder.CreateAlloca(compiler->builder.getInt32Ty(), 0, identifier);
 
     compiler->locals[identifier] = alloc;
 

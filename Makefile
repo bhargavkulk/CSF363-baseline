@@ -49,7 +49,7 @@ obj/test.o: bin/test.bc
 
 bin/test.bc: test.be
 	@echo "Compiling test.be to LLVM bitcode..."
-	@echo "./$(BIN) test.be bin/test.bc"; ./$(BIN) test.be bin/test.bc
+	@echo "./$(BIN) test.be -o bin/test.bc"; ./$(BIN) test.be -o bin/test.bc
 
 obj/runtime_lib.o: runtime/runtime_lib.cc
 	@echo "Building runtime library..."
