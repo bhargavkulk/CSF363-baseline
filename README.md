@@ -46,14 +46,6 @@ echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-
-## Commands to execute
-
-``` 
-make 
-make compile
-./bin/test
-```
 ## Running this project
 
 To build this compiler simply run `make compiler`. You can find the executable called `bin/base` folder. This is your compiler.
