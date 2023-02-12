@@ -2,6 +2,6 @@ bin/
 obj/
 src/parser.cc
 include/parser.hh
-src/lexer.cc
+src/*_lex.cc
 .vscode/
 compile_flags.txt

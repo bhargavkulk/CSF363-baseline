@@ -1,7 +1,7 @@
+.SECONDARY:
+
 LEXER:= $(wildcard src/*.lex)
-LEXER_OUT:=$(patsubst src/%.lex,src/%.cc,$(LEXER))
-LEXER:= $(wildcard src/*.lex)
-LEXER_OUT:=$(patsubst src/%.lex,src/%.cc,$(LEXER))
+LEXER_OUT:=$(patsubst src/%.lex,src/%_lex.cc,$(LEXER))
 PARSER:= parser
 
 FLAGS:= -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -Iinclude -std=c++17
@@ -32,7 +32,7 @@ src/$(PARSER).cc: src/$(PARSER).yy
 	@echo "bison src/$(PARSER).yy -do src/$(PARSER).cc"; bison src/$(PARSER).yy -do src/$(PARSER).cc
 	@echo "mv -f src/$(PARSER).hh include/$(PARSER).hh"; mv -f src/$(PARSER).hh include/$(PARSER).hh
 
-$(LEXER_OUT): $(LEXER)
+src/%_lex.cc: src/%.lex
 	@echo "Running flex..."
 	@echo "flex -o $@ $^"; flex -o $@ $^
 
