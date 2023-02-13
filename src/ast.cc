@@ -53,13 +53,13 @@ std::string NodeStmts::to_string() {
     return out;
 }
 
-NodeAssn::NodeAssn(std::string id, Node *expr) {
+NodeDecl::NodeDecl(std::string id, Node *expr) {
     type = ASSN;
     identifier = id;
     expression = expr;
 }
 
-std::string NodeAssn::to_string() {
+std::string NodeDecl::to_string() {
     return "(let " + identifier + " " + expression->to_string() + ")";
 }
 
