@@ -58,7 +58,7 @@ Stmt : TLET TIDENT TEQUAL Expr
         } else {
             symbol_table.insert($2);
 
-            $$ = new NodeAssn($2, $4);
+            $$ = new NodeDecl($2, $4);
         }
      }
      | TDBG Expr
