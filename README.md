@@ -102,3 +102,12 @@ CSF363-baseline
 - [Flex & Bison](https://web.iitd.ac.in/~sumeet/flex__bison.pdf)
 - [The Official LLVM Tutorial](https://llvm.org/docs/tutorial/index.html)
 - [Crafting Interpreters](http://craftinginterpreters.com/contents.html)
+
+## common fixes 
+- if make fails or there are some issues , try `make clean` and then run `make` again 
+- something that might fix errors if you are writing a seperate lex file:
+add this line to the beginning:
+
+%option prefix="pr"
+
+This will change yytext -> prtext and will stop name clashes between your new lexer and the lexer.lex
